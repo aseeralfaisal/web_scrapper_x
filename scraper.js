@@ -9,8 +9,14 @@ async function getStackOverAboutText() {
     await page.goto('https://stackoverflow.com/company');
     const aboutText = await page.$eval('h1.p-ff-roboto-slab', e => e.innerText)
     const list = await page.$$eval('a.s-navigation--item', (elems) => elems.map(elem => elem.outerText))
-    console.log(aboutText)
-    console.log(list)
+    // const button = await page.evaluateHandle(() =>
+    //     document.querySelectorAll('a.s-navigation--item')
+    // )
+    const elems = await page.$$('a.s-navigation--item')
+    elems.map(async el => console.log(el))
+    await page.waitForTimeout(50000);
+    // console.log(aboutText)
+    // console.log(list)
     await browser.close();
 }
 getStackOverAboutText()
